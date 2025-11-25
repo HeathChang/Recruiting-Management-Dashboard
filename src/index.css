@@ -2,3 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer utilities {
+    .scrollbar-tiny::-webkit-scrollbar {
+        width: 4px;
+    }
+    .scrollbar-tiny::-webkit-scrollbar-thumb {
+        background: #d1d5db; 
+        border-radius: 9999px;
+    }
+}
