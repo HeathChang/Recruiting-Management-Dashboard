@@ -15,7 +15,7 @@ export const DashboardContainer = () => {
     }
 
     return (
-        <div className={`min-h-screen py-[32px] px-[32px] min-w-[674px] transition-colors ${isDarkMode ? 'bg-gray-900' : 'bg-gray-100'
+        <div className={`min-h-screen py-[32px] px-[32px] min-w-[674px] transition-colors ${isDarkMode ? 'bg-gray-900' : 'bg-white'
             }`}>
             {/* Header */}
             <div className="w-full flex justify-between items-center">

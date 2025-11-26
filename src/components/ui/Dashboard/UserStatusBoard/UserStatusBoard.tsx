@@ -89,37 +89,37 @@ export const UserStatusBoard = ({
             <div className="grid grid-cols-3 web:grid-cols-6 mt-[16px] gap-[8px]">
                 <div className={`border-[1px] rounded-[4px] px-[4px] transition-colors ${isDarkMode
                     ? 'border-gray-600 bg-gray-800'
-                    : 'border-gray-300 bg-gray-50'
+                    : 'border-gray-300 bg-gray-200'
                     }`}>
                     <UserCardContainer type={StatusEnum.APPLICATION} userList={applicationUsers} onAddUser={handleAddUser} onDeleteUser={handleDeleteUser} />
                 </div>
                 <div className={`border-[1px] rounded-[4px] px-[4px] transition-colors ${isDarkMode
                     ? 'border-gray-600 bg-gray-800'
-                    : 'border-gray-300 bg-gray-50'
+                    : 'border-gray-300 bg-gray-200'
                     }`}>
                     <UserCardContainer type={StatusEnum.TA} userList={taUsers} onAddUser={handleAddUser} onDeleteUser={handleDeleteUser} />
                 </div>
                 <div className={`border-[1px] rounded-[4px] px-[4px] transition-colors ${isDarkMode
                     ? 'border-gray-600 bg-gray-800'
-                    : 'border-gray-300 bg-gray-50'
+                    : 'border-gray-300 bg-gray-200'
                     }`}>
                     <UserCardContainer type={StatusEnum.INTERVIEW_FIRST} userList={interviewFirstUsers} onAddUser={handleAddUser} onDeleteUser={handleDeleteUser} />
                 </div>
                 <div className={`border-[1px] rounded-[4px] px-[4px] transition-colors ${isDarkMode
                     ? 'border-gray-600 bg-gray-800'
-                    : 'border-gray-300 bg-gray-50'
+                    : 'border-gray-300 bg-gray-200'
                     }`}>
                     <UserCardContainer type={StatusEnum.CODING_TEST} userList={codingTestUsers} onAddUser={handleAddUser} onDeleteUser={handleDeleteUser} />
                 </div>
                 <div className={`border-[1px] rounded-[4px] px-[4px] transition-colors ${isDarkMode
                     ? 'border-gray-600 bg-gray-800'
-                    : 'border-gray-300 bg-gray-50'
+                    : 'border-gray-300 bg-gray-200'
                     }`}>
                     <UserCardContainer type={StatusEnum.INTERVIEW_SECOND} userList={interviewSecondUsers} onAddUser={handleAddUser} onDeleteUser={handleDeleteUser} />
                 </div>
                 <div className={`border-[1px] rounded-[4px] px-[4px] transition-colors ${isDarkMode
                     ? 'border-gray-600 bg-gray-800'
-                    : 'border-gray-300 bg-gray-50'
+                    : 'border-gray-300 bg-gray-200'
                     }`}>
                     <UserCardContainer type={StatusEnum.CONFIRMATION} userList={confirmationUsers} onAddUser={handleAddUser} onDeleteUser={handleDeleteUser} />
                 </div>
@@ -128,7 +128,7 @@ export const UserStatusBoard = ({
                 {activeId ? (
                     <div className={`gap-[8px] border-[1px] rounded-[8px] !p-[2px] shadow-lg transition-colors ${isDarkMode
                         ? 'border-gray-600 bg-gray-700'
-                        : 'border-gray-300 bg-gray-50'
+                        : 'border-gray-300 bg-gray-200'
                         }`}>
                         <UserCard user={userData.find(user => user.userId === activeId)!} />
                     </div>
