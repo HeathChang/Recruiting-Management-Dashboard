@@ -14,4 +14,3 @@ export interface UserType {
     userPhone: string
     currentStatus: StatusEnum
 }
-
