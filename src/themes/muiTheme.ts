@@ -1,8 +1,5 @@
 import { createTheme } from '@mui/material/styles';
 
-/**
- * SRP: 라이트 모드 MUI 테마 생성 책임
- */
 export const lightTheme = createTheme({
     palette: {
         mode: 'light',
@@ -20,10 +17,6 @@ export const lightTheme = createTheme({
     },
 });
 
-/**
- * SRP: 다크 모드 MUI 테마 생성 책임
- * - MUI 컴포넌트가 자동으로 다크모드 색상 적용
- */
 export const darkTheme = createTheme({
     palette: {
         mode: 'dark',

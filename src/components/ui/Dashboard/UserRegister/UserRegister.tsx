@@ -2,7 +2,7 @@ import { Box, TextField, Button, MenuItem, Select, FormControl, InputLabel } fro
 import { useState } from "react"
 import { UserType, RegisterMethod } from "../../../../types/user.type"
 import { StatusEnum } from "../../../../types/status.type"
-import { useUserForm } from "./hooks/useUserForm"
+import { useUserForm } from "../../../../hooks/useUserForm"
 import { validateUserForm } from "./utils/validateUserForm"
 import { useTheme } from "../../../../contexts/ThemeContext"
 

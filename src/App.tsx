@@ -5,10 +5,6 @@ import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@mui/material'
 import { useTheme } from './contexts/ThemeContext'
 import { lightTheme, darkTheme } from './themes/muiTheme'
 
-/**
- * SRP: MUI 테마 적용 책임
- * - ThemeContext의 다크모드 상태에 따라 MUI 테마 전환
- */
 function AppContent() {
   const { isDarkMode } = useTheme();
 
