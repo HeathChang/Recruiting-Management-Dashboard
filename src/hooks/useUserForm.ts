@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { RegisterMethod } from "../../../../../types/user.type"
+import { RegisterMethod } from "../types/user.type"
 
 export interface UserFormData {
     userName: string

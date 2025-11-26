@@ -1,4 +1,4 @@
-import { UserFormData } from "../hooks/useUserForm"
+import { UserFormData } from "../../../../../hooks/useUserForm"
 
 export const validateUserForm = (formData: UserFormData): Record<string, string> => {
     const errors: Record<string, string> = {};
