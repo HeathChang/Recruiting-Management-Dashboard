@@ -6,6 +6,7 @@ import { StatusEnum } from "../../../../types/status.type"
 import { UserCard } from "../UserCard/userCard"
 import { useDroppable } from "@dnd-kit/core"
 import { UserRegister } from "../UserRegister/UserRegister"
+import { useTheme } from "../../../../contexts/ThemeContext"
 
 
 interface UserCardContainerProps {
@@ -17,6 +18,7 @@ interface UserCardContainerProps {
 
 
 export const UserCardContainer = ({ type, userList, onAddUser, onDeleteUser }: UserCardContainerProps) => {
+    const { isDarkMode } = useTheme();
     const { setNodeRef, isOver } = useDroppable({ id: type });
     const [open, setOpen] = useState(false);
 
@@ -42,16 +44,24 @@ export const UserCardContainer = ({ type, userList, onAddUser, onDeleteUser }: U
             <Divider />
             <div
                 ref={setNodeRef}
-                className={`flex flex-col gap-[8px] mt-[8px] relative h-[640px] overflow-y-auto scrollbar-tiny cursor-pointer transition-colors ${isOver ? 'bg-blue-50 border-2 border-blue-400 border-dashed' : ''
+                className={`flex flex-col gap-[8px] mt-[8px] relative h-[640px] overflow-y-auto scrollbar-tiny cursor-pointer transition-colors ${isOver
+                    ? isDarkMode
+                        ? 'bg-blue-900/30 border-2 border-blue-400 border-dashed'
+                        : 'bg-blue-50 border-2 border-blue-400 border-dashed'
+                    : ''
                     }`}
             >
                 {userList.length === 0
-                    ? (<div className='flex items-center justify-center text-center w-full h-full text-[12px] text-gray-500'>
+                    ? (<div className={`flex items-center justify-center text-center w-full h-full text-[12px] ${isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                        }`}>
                         지원자 없음
                     </div>)
                     : (
                         userList.map((user) => (
-                            <div key={user.userId} className='gap-[8px] border-[1px] border-gray-300 rounded-[8px] !p-[2px] bg-white cursor-pointer'>
+                            <div key={user.userId} className={`gap-[8px] border-[1px] rounded-[8px] !p-[2px] cursor-pointer transition-colors ${isDarkMode
+                                ? 'border-gray-600 bg-gray-700 hover:bg-gray-650'
+                                : 'border-gray-300 bg-gray-50 hover:bg-gray-100'
+                                }`}>
                                 <UserCard user={user} onDeleteUser={handleDeleteUser} />
                             </div>
                         ))

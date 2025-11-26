@@ -5,6 +5,7 @@ import moment from "moment"
 import { useDraggable } from "@dnd-kit/core"
 import { useState } from "react"
 import { Menu } from "../../../common/Menu/Menu"
+import { useTheme } from "../../../../contexts/ThemeContext"
 
 const RESUME_URL = '/resumes/sample_resume.pdf';
 
@@ -14,6 +15,7 @@ interface UserCardProps {
 }
 
 export const UserCard = ({ user, onDeleteUser }: UserCardProps) => {
+    const { isDarkMode } = useTheme();
     const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
         id: user.userId,
     });
@@ -63,7 +65,8 @@ export const UserCard = ({ user, onDeleteUser }: UserCardProps) => {
                 style={{ opacity: isDragging ? 0.3 : 1 }}
                 {...listeners}
                 {...attributes}
-                className='px-[6px] py-[8px]'
+                className={`px-[6px] py-[8px] transition-colors ${isDarkMode ? 'text-gray-100' : 'text-gray-900'
+                    }`}
                 onClick={handleClickCard}
             >
                 <div className='flex justify-between pl-[4px]'>
@@ -80,8 +83,10 @@ export const UserCard = ({ user, onDeleteUser }: UserCardProps) => {
                     <Chip label={user.registerMethod} variant="outlined" size="small" color={user.registerMethod === RegisterMethod.DIRECT ? 'success' : 'primary'} />
                 </div>
                 <div className='flex items-center gap-[4px] pl-[4px] mt-[8px]'>
-                    <IconCalendar size={12} className='text-gray-500' />
-                    <span className='text-gray-500 text-[12px]'>{moment(user.registerDate).format('YYYY-MM-DD')}</span>
+                    <IconCalendar size={12} className={isDarkMode ? 'text-gray-400' : 'text-gray-500'} />
+                    <span className={`text-[12px] ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                        {moment(user.registerDate).format('YYYY-MM-DD')}
+                    </span>
                 </div>
             </div>
 

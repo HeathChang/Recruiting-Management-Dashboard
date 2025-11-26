@@ -4,6 +4,7 @@ import { UserType, RegisterMethod } from "../../../../types/user.type"
 import { StatusEnum } from "../../../../types/status.type"
 import { useUserForm } from "./hooks/useUserForm"
 import { validateUserForm } from "./utils/validateUserForm"
+import { useTheme } from "../../../../contexts/ThemeContext"
 
 interface UserRegisterProps {
     currentStatus: StatusEnum
@@ -16,6 +17,7 @@ export const UserRegister = ({
     currentStatus,
     onAddUser
 }: UserRegisterProps) => {
+    const { isDarkMode } = useTheme();
     const { formData, handleInputChange, resetForm } = useUserForm();
     const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -45,7 +47,8 @@ export const UserRegister = ({
     };
 
     return (
-        <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] bg-white p-4 rounded-lg shadow-lg">
+        <Box className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] p-4 rounded-lg shadow-lg transition-colors ${isDarkMode ? 'bg-gray-800 text-gray-100' : 'bg-gray-50 text-gray-900'
+            }`}>
             <h2 className="text-xl font-bold mb-4">새로운 지원자 추가</h2>
 
             <div className="flex flex-col gap-4">
