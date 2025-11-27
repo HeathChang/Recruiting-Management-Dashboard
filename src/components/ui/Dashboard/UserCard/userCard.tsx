@@ -6,6 +6,7 @@ import { useDraggable } from "@dnd-kit/core"
 import { useState } from "react"
 import { Menu } from "../../../common/Menu/Menu"
 import { useTheme } from "../../../../contexts/ThemeContext"
+import { UserDeleteConfirmModal } from "./UserDeleteConfirmModal"
 
 interface UserCardProps {
     user: UserType
@@ -23,6 +24,7 @@ export const UserCard = ({
     onDeleteUser
 }: UserCardProps) => {
     const { isDarkMode } = useTheme();
+    const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
     const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
         id: user.userId,
     });
@@ -34,24 +36,21 @@ export const UserCard = ({
         setAnchorEl(event.currentTarget);
     };
 
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
-
     const handleMenuViewResume = () => {
         onViewResume?.();
-        handleMenuClose();
+        setAnchorEl(null);
     };
 
     const handleMenuDownloadResume = () => {
         onDownloadResume?.();
-        handleMenuClose();
+        setAnchorEl(null);
     };
 
-    const handleMenuReject = () => {
-        onDeleteUser?.(user.userId);
-        handleMenuClose();
+    const handleMenuDeleteModal = () => {
+        setDeleteModalOpen(true);
+        setAnchorEl(null);
     };
+
 
     return (
         <>
@@ -66,7 +65,7 @@ export const UserCard = ({
             >
                 <div className='flex justify-between pl-[4px]'>
                     <Tooltip title={user.userId}>
-                        <div className='truncate font-[16px] font-bold'>{user.userName}</div>
+                        <div className='truncate font-[14px] font-bold'>{user.userName}</div>
                     </Tooltip>
                     <div onClick={handleMenuOpen} className='cursor-pointer'>
                         <Tooltip title="더보기">
@@ -74,22 +73,22 @@ export const UserCard = ({
                         </Tooltip>
                     </div>
                 </div>
-                <div className={`mt-[4px] text-[12px] font-semibold ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                <div className={`mt-[4px] text-[14px] font-semibold ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                     <div className='flex items-center gap-[4px]'>
-                        <IconMail size={12} className={isDarkMode ? 'text-gray-400' : 'text-gray-500'} />
-                        <span>{user.userEmail}</span>
+                        <IconMail size={16} className={isDarkMode ? 'text-gray-400' : 'text-gray-500'} />
+                        <span className="truncate">{user.userEmail}</span>
                     </div>
                     <div className='flex items-center gap-[4px]'>
-                        <IconPhone size={12} className={isDarkMode ? 'text-gray-400' : 'text-gray-500'} />
-                        <span>{user.userPhone}</span>
+                        <IconPhone size={16} className={isDarkMode ? 'text-gray-400' : 'text-gray-500'} />
+                        <span className="truncate">{user.userPhone}</span>
                     </div>
                 </div>
-                <div className='mt-[8px]'>
+                <div className='mt-[8px] text-[14px] font-bold'>
                     <Chip label={user.registerMethod} variant="outlined" size="small" color={user.registerMethod === RegisterMethod.DIRECT ? 'success' : 'primary'} />
                 </div>
-                <div className='flex items-center gap-[4px] pl-[4px] mt-[8px]'>
-                    <IconCalendar size={12} className={isDarkMode ? 'text-gray-400' : 'text-gray-500'} />
-                    <span className={`text-[12px] ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                <div className='flex items-center gap-[4px] mt-[4px] text-[14px] font-bold'>
+                    <IconCalendar size={16} className={isDarkMode ? 'text-gray-400' : 'text-gray-500'} />
+                    <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                         {moment(user.registerDate).format('YYYY-MM-DD')}
                     </span>
                 </div>
@@ -98,7 +97,7 @@ export const UserCard = ({
             <Menu
                 anchorEl={anchorEl}
                 open={open}
-                onClose={handleMenuClose}
+                onClose={() => setAnchorEl(null)}
             >
                 <MenuItem onClick={handleMenuViewResume}>
                     <ListItemIcon>
@@ -113,13 +112,20 @@ export const UserCard = ({
                     <ListItemText>이력서 다운로드</ListItemText>
                 </MenuItem>
                 <Divider />
-                <MenuItem onClick={handleMenuReject} sx={{ color: 'error.main' }}>
+                <MenuItem onClick={handleMenuDeleteModal} sx={{ color: 'error.main' }}>
                     <ListItemIcon>
                         <IconTrash size={18} color="red" />
                     </ListItemIcon>
-                    <ListItemText>불합격 처리</ListItemText>
+                    <ListItemText>삭제</ListItemText>
                 </MenuItem>
             </Menu>
+
+            <UserDeleteConfirmModal
+                open={isDeleteModalOpen}
+                onClose={() => setDeleteModalOpen(false)}
+                onConfirm={(userId) => onDeleteUser?.(userId)}
+                user={user}
+            />
         </>
     )
 }

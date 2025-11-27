@@ -1,11 +1,11 @@
-import { Divider, Modal } from "@mui/material"
+import { Divider } from "@mui/material"
 import { useState } from "react"
 import { UserCardContainerTitle } from "../UserCardContainerTitle/userCardContainerTitle"
 import { UserType } from "../../../../types/user.type"
 import { StatusEnum } from "../../../../types/status.type"
 import { UserCard } from "../UserCard/userCard"
 import { useDroppable } from "@dnd-kit/core"
-import { UserRegister } from "../UserRegister/UserRegister"
+import { UserRegisterModal } from "../UserRegister/UserRegisterModal"
 import { useTheme } from "../../../../contexts/ThemeContext"
 import { EXTERNAL_URLS, RESUME_PATHS } from "../../../../constants/urls"
 import { downloadFile, openFileInNewTab } from "../../../../utils/file/fileDownload"
@@ -69,15 +69,12 @@ export const UserCardContainer = ({ type, userList, onAddUser, onDeleteUser }: U
                         ))
                     )}
             </div>
-            <Modal open={isRegisterModalOpen} onClose={() => setRegisterModalOpen(false)}>
-                <div>
-                    <UserRegister
-                        onClose={() => setRegisterModalOpen(false)}
-                        currentStatus={type}
-                        onAddUser={(newUser: UserType) => onAddUser?.(newUser)}
-                    />
-                </div>
-            </Modal>
+            <UserRegisterModal
+                open={isRegisterModalOpen}
+                onClose={() => setRegisterModalOpen(false)}
+                currentStatus={type}
+                onAddUser={(newUser: UserType) => onAddUser?.(newUser)}
+            />
         </>
     )
 }
