@@ -1,7 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { StoryObj } from '@storybook/react';
 import { UserCard } from './userCard';
 import { RegisterMethod } from '../../../../types/user.type';
-import { useTheme } from '../../../../contexts/ThemeContext';
 
 const meta = {
   title: 'Dashboard/UserCard',

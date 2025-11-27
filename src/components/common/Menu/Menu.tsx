@@ -36,6 +36,7 @@ export const Menu = ({
             open={open}
             onClose={onClose}
             anchorOrigin={anchorOrigin}
+            transformOrigin={transformOrigin}
             className="border-radius-[8px]"
         >
             {children}

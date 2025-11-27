@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { StoryObj } from '@storybook/react';
 import { UserCardContainer } from './UserCardContainer';
 import { StatusEnum } from '../../../../types/status.type';
 import { RegisterMethod } from '../../../../types/user.type';
