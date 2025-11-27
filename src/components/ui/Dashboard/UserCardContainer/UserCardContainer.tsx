@@ -7,7 +7,8 @@ import { UserCard } from "../UserCard/userCard"
 import { useDroppable } from "@dnd-kit/core"
 import { UserRegister } from "../UserRegister/UserRegister"
 import { useTheme } from "../../../../contexts/ThemeContext"
-
+import { EXTERNAL_URLS, RESUME_PATHS } from "../../../../constants/urls"
+import { downloadFile, openFileInNewTab } from "../../../../utils/file/fileDownload"
 
 interface UserCardContainerProps {
     type: StatusEnum
@@ -16,11 +17,22 @@ interface UserCardContainerProps {
     onDeleteUser?: (userId: string) => void
 }
 
-
 export const UserCardContainer = ({ type, userList, onAddUser, onDeleteUser }: UserCardContainerProps) => {
     const { isDarkMode } = useTheme();
     const { setNodeRef, isOver } = useDroppable({ id: type });
     const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
+
+    const handleCardClick = () => {
+        window.open(EXTERNAL_URLS.CAREER_PAGE, '_blank');
+    };
+
+    const handleResumeView = () => {
+        openFileInNewTab(RESUME_PATHS.SAMPLE);
+    };
+
+    const handleResumeDownload = () => {
+        downloadFile(RESUME_PATHS.SAMPLE, 'sample_resume.pdf');
+    };
 
     return (
         <>
@@ -46,21 +58,25 @@ export const UserCardContainer = ({ type, userList, onAddUser, onDeleteUser }: U
                                 ? 'border-gray-600 bg-gray-700 hover:bg-gray-650'
                                 : 'border-gray-300 bg-gray-50 hover:bg-gray-100'
                                 }`}>
-                                <UserCard user={user} onDeleteUser={(userId) => onDeleteUser?.(userId)} />
+                                <UserCard
+                                    user={user}
+                                    onCardClick={handleCardClick}
+                                    onViewResume={handleResumeView}
+                                    onDownloadResume={handleResumeDownload}
+                                    onDeleteUser={(userId) => onDeleteUser?.(userId)}
+                                />
                             </div>
                         ))
                     )}
             </div>
-
-            <Modal
-                open={isRegisterModalOpen}
-                aria-labelledby="add-user-modal"
-            >
-                <UserRegister
-                    onClose={() => setRegisterModalOpen(false)}
-                    currentStatus={type}
-                    onAddUser={(newUser: UserType) => onAddUser?.(newUser)}
-                />
+            <Modal open={isRegisterModalOpen} onClose={() => setRegisterModalOpen(false)}>
+                <div>
+                    <UserRegister
+                        onClose={() => setRegisterModalOpen(false)}
+                        currentStatus={type}
+                        onAddUser={(newUser: UserType) => onAddUser?.(newUser)}
+                    />
+                </div>
             </Modal>
         </>
     )

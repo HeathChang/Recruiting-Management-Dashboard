@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Button, CircularProgress } from "@mui/material";
 import { DndContext, DragOverlay } from "@dnd-kit/core";
 import { StatusEnum } from "../../../../types/status.type";
 import { UserType } from "../../../../types/user.type";
@@ -100,6 +99,7 @@ export const UserStatusBoard = ({
                     <UserCardContainer type={StatusEnum.CONFIRMATION} userList={confirmationUsers} onAddUser={handleAddUser} onDeleteUser={handleDeleteUser} />
                 </div>
             </div>
+
             <DragOverlay>
                 {activeId ? (
                     <div className={`gap-[8px] border-[1px] rounded-[8px] !p-[2px] shadow-lg transition-colors ${isDarkMode

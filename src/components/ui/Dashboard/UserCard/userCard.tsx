@@ -1,62 +1,57 @@
 import { Chip, Tooltip, MenuItem, ListItemIcon, ListItemText, Divider } from "@mui/material"
 import { RegisterMethod, UserType } from "../../../../types/user.type"
-import { IconCalendar, IconDots, IconFileText, IconDownload, IconTrash } from "@tabler/icons-react"
+import { IconCalendar, IconDots, IconFileText, IconDownload, IconTrash, IconMail, IconPhone } from "@tabler/icons-react"
 import moment from "moment"
 import { useDraggable } from "@dnd-kit/core"
 import { useState } from "react"
 import { Menu } from "../../../common/Menu/Menu"
 import { useTheme } from "../../../../contexts/ThemeContext"
 
-const RESUME_URL = '/resumes/sample_resume.pdf';
-
 interface UserCardProps {
     user: UserType
+    onCardClick?: () => void
+    onViewResume?: () => void
+    onDownloadResume?: () => void
     onDeleteUser?: (userId: string) => void
 }
 
-export const UserCard = ({ user, onDeleteUser }: UserCardProps) => {
+export const UserCard = ({
+    user,
+    onCardClick,
+    onViewResume,
+    onDownloadResume,
+    onDeleteUser
+}: UserCardProps) => {
     const { isDarkMode } = useTheme();
     const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
         id: user.userId,
     });
-
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
-    const handleClickCard = () => {
-        window.open("https://interxlab.career.greetinghr.com/ko/interxlab", "_blank");
-    }
-
-    const handleClickMore = (event: React.MouseEvent<HTMLElement>) => {
+    const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
         event.stopPropagation();
         setAnchorEl(event.currentTarget);
-    }
+    };
 
-    const handleCloseMenu = () => {
+    const handleMenuClose = () => {
         setAnchorEl(null);
-    }
+    };
 
-    const handleViewResume = () => {
-        window.open(RESUME_URL, '_blank');
-        handleCloseMenu();
-    }
+    const handleMenuViewResume = () => {
+        onViewResume?.();
+        handleMenuClose();
+    };
 
-    const handleDownloadResume = () => {
-        const filename = `sample_resume.pdf`;
-        const link = document.createElement('a');
-        link.href = RESUME_URL;
-        link.download = filename;
-        link.style.display = 'none';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        handleCloseMenu();
-    }
+    const handleMenuDownloadResume = () => {
+        onDownloadResume?.();
+        handleMenuClose();
+    };
 
-    const handleReject = () => {
+    const handleMenuReject = () => {
         onDeleteUser?.(user.userId);
-        handleCloseMenu();
-    }
+        handleMenuClose();
+    };
 
     return (
         <>
@@ -67,16 +62,26 @@ export const UserCard = ({ user, onDeleteUser }: UserCardProps) => {
                 {...attributes}
                 className={`px-[6px] py-[8px] transition-colors ${isDarkMode ? 'text-gray-100' : 'text-gray-900'
                     }`}
-                onClick={handleClickCard}
+                onClick={onCardClick}
             >
                 <div className='flex justify-between pl-[4px]'>
                     <Tooltip title={user.userId}>
                         <div className='truncate font-[16px] font-bold'>{user.userName}</div>
                     </Tooltip>
-                    <div onClick={handleClickMore} className='cursor-pointer'>
+                    <div onClick={handleMenuOpen} className='cursor-pointer'>
                         <Tooltip title="더보기">
                             <IconDots size={16} />
                         </Tooltip>
+                    </div>
+                </div>
+                <div className={`mt-[4px] text-[12px] font-semibold ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                    <div className='flex items-center gap-[4px]'>
+                        <IconMail size={12} className={isDarkMode ? 'text-gray-400' : 'text-gray-500'} />
+                        <span>{user.userEmail}</span>
+                    </div>
+                    <div className='flex items-center gap-[4px]'>
+                        <IconPhone size={12} className={isDarkMode ? 'text-gray-400' : 'text-gray-500'} />
+                        <span>{user.userPhone}</span>
                     </div>
                 </div>
                 <div className='mt-[8px]'>
@@ -93,22 +98,22 @@ export const UserCard = ({ user, onDeleteUser }: UserCardProps) => {
             <Menu
                 anchorEl={anchorEl}
                 open={open}
-                onClose={handleCloseMenu}
+                onClose={handleMenuClose}
             >
-                <MenuItem onClick={handleViewResume}>
+                <MenuItem onClick={handleMenuViewResume}>
                     <ListItemIcon>
                         <IconFileText size={18} />
                     </ListItemIcon>
                     <ListItemText>이력서 보기</ListItemText>
                 </MenuItem>
-                <MenuItem onClick={handleDownloadResume}>
+                <MenuItem onClick={handleMenuDownloadResume}>
                     <ListItemIcon>
                         <IconDownload size={18} />
                     </ListItemIcon>
                     <ListItemText>이력서 다운로드</ListItemText>
                 </MenuItem>
                 <Divider />
-                <MenuItem onClick={handleReject} sx={{ color: 'error.main' }}>
+                <MenuItem onClick={handleMenuReject} sx={{ color: 'error.main' }}>
                     <ListItemIcon>
                         <IconTrash size={18} color="red" />
                     </ListItemIcon>

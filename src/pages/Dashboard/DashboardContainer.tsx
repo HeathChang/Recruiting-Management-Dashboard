@@ -36,14 +36,8 @@ export const DashboardContainer = () => {
         );
     }
 
-
-    const handleChange = (_event: React.MouseEvent<HTMLElement>, value: string) => {
-        if (value !== null) setSelected(value)
-    }
-
     return (
         <div className={`min-h-screen py-[32px] px-[32px] min-w-[674px] transition-colors ${isDarkMode ? 'bg-gray-900' : 'bg-white'}`}>
-            {/* Header */}
             <div className="w-full flex justify-between items-center">
                 <div className={`font-[16px] font-bold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
                     프론트엔드 (Frontend) 개발자 - 데이터스페이스 (Dataspace)
@@ -58,18 +52,13 @@ export const DashboardContainer = () => {
                             {isDarkMode ? <IconSun size={18} /> : <IconMoon size={18} />}
                         </Button>
                     </Tooltip>
-                    <ToggleButtonGroup value={selected} onChange={handleChange} exclusive>
+                    <ToggleButtonGroup value={selected} onChange={(_, value) => setSelected(value)} exclusive>
                         <ToggleButton value="지원자" className='!px-[6px] !py-[4px]'>지원자</ToggleButton>
-                        <Tooltip title="메일함">
-                            <ToggleButton value="메일함" className='!px-[6px] !py-[4px]' disabled={true}>메일함</ToggleButton>
-                        </Tooltip>
+                        <ToggleButton value="메일함" className='!px-[6px] !py-[4px]' disabled={true}>메일함</ToggleButton>
                     </ToggleButtonGroup>
-
-                    <Button variant="outlined" className='!px-[4px] !py-[2px]'>채용팀</Button>
                 </div>
             </div>
 
-            {/* Search Area */}
             <div className="grid grid-cols-1 web:grid-cols-2  justify-between mt-[8px] items-center py-[8px] gap-[18px] web:gap-0">
                 <div className='flex gap-[8px] items-center'>
                     <Select
@@ -86,7 +75,7 @@ export const DashboardContainer = () => {
                         variant="outlined"
                         size="small"
                         placeholder="이름, 이메일, 전화번호로 검색"
-                        className='!w-[400px] !text-red-500'
+                        className='!min-w-[400px] !text-red-500'
                         onChange={(event) => setSearchText(event.target.value)}
                         InputProps={{
                             startAdornment: (
@@ -99,16 +88,11 @@ export const DashboardContainer = () => {
                 </div>
             </div>
 
-            {/* Main Area */}
             <UserStatusBoard
                 searchText={searchText}
                 searchCategory={searchCategory}
                 data={data!}
             />
         </div>
-
-
     )
 }
-
-

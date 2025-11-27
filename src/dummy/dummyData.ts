@@ -144,7 +144,7 @@ export const dummyUserData: UserType[] = [
         registerDate: '2024-11-19 09:20:00',
         userEmail: 'min.namgung@example.com',
         userPhone: '010-6666-7777',
-        currentStatus: StatusEnum.TA
+        currentStatus: StatusEnum.APPLICATION
     },
     {
         userId: 'USER017',
@@ -153,7 +153,7 @@ export const dummyUserData: UserType[] = [
         registerDate: '2024-11-18 11:40:00',
         userEmail: 'jisoo.hwang@example.com',
         userPhone: '010-7777-8888',
-        currentStatus: StatusEnum.TA
+        currentStatus: StatusEnum.APPLICATION
     },
     {
         userId: 'USER018',
@@ -162,7 +162,7 @@ export const dummyUserData: UserType[] = [
         registerDate: '2024-11-17 14:15:00',
         userEmail: 'dongwook.shin@example.com',
         userPhone: '010-8888-9999',
-        currentStatus: StatusEnum.INTERVIEW_FIRST
+        currentStatus: StatusEnum.APPLICATION
     },
     {
         userId: 'USER019',
@@ -171,7 +171,7 @@ export const dummyUserData: UserType[] = [
         registerDate: '2024-11-16 10:30:00',
         userEmail: 'eunbi.kwon@example.com',
         userPhone: '010-9999-0000',
-        currentStatus: StatusEnum.INTERVIEW_FIRST
+        currentStatus: StatusEnum.APPLICATION
     },
     {
         userId: 'USER020',
@@ -180,7 +180,7 @@ export const dummyUserData: UserType[] = [
         registerDate: '2024-11-15 15:45:00',
         userEmail: 'junghoon.moon@example.com',
         userPhone: '010-1010-2020',
-        currentStatus: StatusEnum.CODING_TEST
+        currentStatus: StatusEnum.APPLICATION
     },
     {
         userId: 'USER021',
@@ -189,7 +189,7 @@ export const dummyUserData: UserType[] = [
         registerDate: '2024-11-14 09:00:00',
         userEmail: 'areum.yoo@example.com',
         userPhone: '010-2020-3030',
-        currentStatus: StatusEnum.CODING_TEST
+        currentStatus: StatusEnum.APPLICATION
     },
     {
         userId: 'USER022',
@@ -198,7 +198,7 @@ export const dummyUserData: UserType[] = [
         registerDate: '2024-11-13 13:30:00',
         userEmail: 'sunghoon.bae@example.com',
         userPhone: '010-3030-4040',
-        currentStatus: StatusEnum.INTERVIEW_SECOND
+        currentStatus: StatusEnum.APPLICATION
     },
     {
         userId: 'USER023',
@@ -207,7 +207,7 @@ export const dummyUserData: UserType[] = [
         registerDate: '2024-11-12 16:20:00',
         userEmail: 'eunyoung.cho@example.com',
         userPhone: '010-4040-5050',
-        currentStatus: StatusEnum.INTERVIEW_SECOND
+        currentStatus: StatusEnum.APPLICATION
     },
     {
         userId: 'USER024',
@@ -216,7 +216,7 @@ export const dummyUserData: UserType[] = [
         registerDate: '2024-11-11 10:45:00',
         userEmail: 'minki.seol@example.com',
         userPhone: '010-5050-6060',
-        currentStatus: StatusEnum.CONFIRMATION
+        currentStatus: StatusEnum.APPLICATION
     },
     {
         userId: 'USER025',
@@ -225,7 +225,7 @@ export const dummyUserData: UserType[] = [
         registerDate: '2024-11-10 14:00:00',
         userEmail: 'soyeon.tak@example.com',
         userPhone: '010-6060-7070',
-        currentStatus: StatusEnum.CONFIRMATION
+        currentStatus: StatusEnum.APPLICATION
     },
     {
         userId: 'USER026',
@@ -243,7 +243,7 @@ export const dummyUserData: UserType[] = [
         registerDate: '2024-11-26 11:20:00',
         userEmail: 'jaemin.ok@example.com',
         userPhone: '010-8080-9090',
-        currentStatus: StatusEnum.TA
+        currentStatus: StatusEnum.APPLICATION
     },
     {
         userId: 'USER028',
@@ -252,7 +252,7 @@ export const dummyUserData: UserType[] = [
         registerDate: '2024-11-25 15:10:00',
         userEmail: 'nayoung.keum@example.com',
         userPhone: '010-9090-1010',
-        currentStatus: StatusEnum.INTERVIEW_FIRST
+        currentStatus: StatusEnum.APPLICATION
     },
     {
         userId: 'USER029',
@@ -261,7 +261,7 @@ export const dummyUserData: UserType[] = [
         registerDate: '2024-11-24 13:40:00',
         userEmail: 'seungwoo.noh@example.com',
         userPhone: '010-1212-3434',
-        currentStatus: StatusEnum.CODING_TEST
+        currentStatus: StatusEnum.APPLICATION
     },
     {
         userId: 'USER030',
@@ -270,6 +270,6 @@ export const dummyUserData: UserType[] = [
         registerDate: '2024-11-23 09:50:00',
         userEmail: 'sohee.ye@example.com',
         userPhone: '010-3434-5656',
-        currentStatus: StatusEnum.INTERVIEW_SECOND
+        currentStatus: StatusEnum.APPLICATION
     }
 ]
