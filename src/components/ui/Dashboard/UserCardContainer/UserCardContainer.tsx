@@ -20,27 +20,11 @@ interface UserCardContainerProps {
 export const UserCardContainer = ({ type, userList, onAddUser, onDeleteUser }: UserCardContainerProps) => {
     const { isDarkMode } = useTheme();
     const { setNodeRef, isOver } = useDroppable({ id: type });
-    const [open, setOpen] = useState(false);
-
-    const handleOpenModal = () => {
-        setOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setOpen(false);
-    };
-
-    const handleAddUser = (newUser: UserType) => {
-        onAddUser?.(newUser);
-    };
-
-    const handleDeleteUser = (userId: string) => {
-        onDeleteUser?.(userId);
-    }
+    const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
 
     return (
         <>
-            <UserCardContainerTitle type={type} onAdd={handleOpenModal} />
+            <UserCardContainerTitle type={type} onAdd={() => setRegisterModalOpen(true)} />
             <Divider />
             <div
                 ref={setNodeRef}
@@ -62,21 +46,20 @@ export const UserCardContainer = ({ type, userList, onAddUser, onDeleteUser }: U
                                 ? 'border-gray-600 bg-gray-700 hover:bg-gray-650'
                                 : 'border-gray-300 bg-gray-50 hover:bg-gray-100'
                                 }`}>
-                                <UserCard user={user} onDeleteUser={handleDeleteUser} />
+                                <UserCard user={user} onDeleteUser={(userId) => onDeleteUser?.(userId)} />
                             </div>
                         ))
                     )}
             </div>
 
             <Modal
-                open={open}
-                onClose={handleCloseModal}
+                open={isRegisterModalOpen}
                 aria-labelledby="add-user-modal"
             >
                 <UserRegister
-                    onClose={handleCloseModal}
+                    onClose={() => setRegisterModalOpen(false)}
                     currentStatus={type}
-                    onAddUser={handleAddUser}
+                    onAddUser={(newUser: UserType) => onAddUser?.(newUser)}
                 />
             </Modal>
         </>

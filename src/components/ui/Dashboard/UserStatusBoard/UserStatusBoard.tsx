@@ -6,22 +6,22 @@ import { UserType } from "../../../../types/user.type";
 import { UserCardContainer } from "../UserCardContainer/UserCardContainer";
 import { UserCard } from "../UserCard/userCard";
 import { useUserListHook } from "../../../../hooks/useUserListHook";
-import { useUserQuery } from "../../../../quries/UserQuery";
 import { useDragAndDrop } from "../../../../hooks/useDragAndDrop";
 import { useTheme } from "../../../../contexts/ThemeContext";
 
 interface UserStatusBoardProps {
     searchText: string;
     searchCategory: string;
+    data: UserType[];
 }
 
 export const UserStatusBoard = ({
     searchText,
-    searchCategory
+    searchCategory,
+    data
 }: UserStatusBoardProps) => {
     const { isDarkMode } = useTheme();
     const [userData, setUserData] = useState<UserType[]>([]);
-    const { data, isLoading } = useUserQuery();
 
     useEffect(() => {
         if (data && data.length > 0) {
@@ -59,30 +59,6 @@ export const UserStatusBoard = ({
     const handleDeleteUser = (userId: string) => {
         setUserData(prev => prev.filter(user => user.userId !== userId));
     };
-
-    if (isLoading) {
-        return (
-            <div className={`flex flex-col items-center justify-center gap-[16px] mt-[32px] py-[64px] ${isDarkMode ? 'text-gray-200' : 'text-gray-900'
-                }`}>
-                <CircularProgress size={32} />
-                <div className="text-xl">로딩 중...</div>
-            </div>
-        );
-    }
-
-    if (data?.length === 0 && !isLoading) {
-        return (
-            <div className={`flex flex-col items-center justify-center gap-[16px] mt-[32px] py-[64px] ${isDarkMode ? 'text-gray-200' : 'text-gray-900'
-                }`}>
-                <div className="text-xl">데이터가 없습니다. </div>
-                <div>
-                    <Button variant="outlined" className='!px-[4px] !py-[2px]' onClick={() => document.location.reload()}>
-                        새로고침
-                    </Button>
-                </div>
-            </div>
-        );
-    }
 
     return (
         <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>

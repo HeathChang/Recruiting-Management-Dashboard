@@ -1,22 +1,48 @@
 import { IconSearch, IconMoon, IconSun } from '@tabler/icons-react'
-import { Button, InputAdornment, MenuItem, Select, TextField, ToggleButton, ToggleButtonGroup, Tooltip } from '@mui/material'
+import { Button, CircularProgress, InputAdornment, MenuItem, Select, TextField, ToggleButton, ToggleButtonGroup, Tooltip } from '@mui/material'
 import { useState } from 'react'
 import { UserStatusBoard } from '../../components/ui/Dashboard/UserStatusBoard/UserStatusBoard'
 import { useTheme } from '../../contexts/ThemeContext';
+import { useUserQuery } from '../../quries/UserQuery';
 
 export const DashboardContainer = () => {
     const { isDarkMode, toggleDarkMode } = useTheme();
     const [selected, setSelected] = useState('지원자')
     const [searchCategory, setSearchCategory] = useState('이름');
     const [searchText, setSearchText] = useState('');
+    const { data, isLoading } = useUserQuery();
+
+    if (isLoading) {
+        return (
+            <div className={`flex flex-col items-center justify-center gap-[16px] mt-[32px] py-[64px] ${isDarkMode ? 'text-gray-200' : 'text-gray-900'
+                }`}>
+                <CircularProgress size={32} />
+                <div className="text-xl">로딩 중...</div>
+            </div>
+        );
+    }
+
+    if (data?.length === 0 && !isLoading) {
+        return (
+            <div className={`flex flex-col items-center justify-center gap-[16px] mt-[32px] py-[64px] ${isDarkMode ? 'text-gray-200' : 'text-gray-900'
+                }`}>
+                <div className="text-xl">데이터가 없습니다. </div>
+                <div>
+                    <Button variant="outlined" className='!px-[4px] !py-[2px]' onClick={() => document.location.reload()}>
+                        새로고침
+                    </Button>
+                </div>
+            </div>
+        );
+    }
+
 
     const handleChange = (_event: React.MouseEvent<HTMLElement>, value: string) => {
         if (value !== null) setSelected(value)
     }
 
     return (
-        <div className={`min-h-screen py-[32px] px-[32px] min-w-[674px] transition-colors ${isDarkMode ? 'bg-gray-900' : 'bg-white'
-            }`}>
+        <div className={`min-h-screen py-[32px] px-[32px] min-w-[674px] transition-colors ${isDarkMode ? 'bg-gray-900' : 'bg-white'}`}>
             {/* Header */}
             <div className="w-full flex justify-between items-center">
                 <div className={`font-[16px] font-bold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
@@ -72,10 +98,12 @@ export const DashboardContainer = () => {
                     />
                 </div>
             </div>
+
             {/* Main Area */}
             <UserStatusBoard
                 searchText={searchText}
                 searchCategory={searchCategory}
+                data={data!}
             />
         </div>
 
