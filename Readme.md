@@ -2,20 +2,19 @@
 프론트엔드 개발자 채용 프로세스를 관리하는 직관적이고 효율적인 대시보드 애플리케이션입니다.
 
 ## 📋 프로젝트 개요
-
 채용 담당자가 지원자의 현재 상태를 한눈에 파악하고, 드래그 앤 드롭으로 간편하게 지원자 상태를 관리할 수 있는 칸반 스타일의 대시보드입니다.
+- ** Git Repo ** : `https://github.com/HeathChang/Recruiting-Management-Dashboard`
+- ** URL ** : `https://recruiting-management-dashboard.vercel.app/`
 
 ### 주요 기능
-
 - ✅ **지원자 관리**: 지원자 정보 등록, 수정, 삭제
 - 🎯 **상태 관리**: 6단계 채용 프로세스 (지원 → TA → 1차인터뷰 → 코딩테스트 → 2차인터뷰 → 입사확정)
 - 🎨 **드래그 앤 드롭**: 직관적인 상태 변경 인터페이스
 - 🔍 **검색 기능**: 이름, 이메일, 전화번호로 지원자 검색
 - 🌓 **다크 모드**: 라이트/다크 테마 지원
-- 📱 **반응형 디자인**: 테블릿 (~1079px) & 데스크톱(1080px~) 대응
+- 📱 **반응형 디자인**: 테블릿, 데스크톱 대응
 
 ## 🛠 기술 스택
-
 ### Core
 - **React 18.3.1** - UI 라이브러리
 - **TypeScript 5.6.3** - 타입 안정성
@@ -38,34 +37,58 @@
 
 ```
 src/
-├── components/           # 재사용 가능한 컴포넌트
-│   ├── common/          # 공통 컴포넌트 (Menu 등)
-│   └── ui/              # UI 컴포넌트
-│       └── Dashboard/   # 대시보드 관련 컴포넌트
-│           ├── UserCard/                  # 지원자 카드
-│           ├── UserCardContainer/         # 상태별 컨테이너
-│           ├── UserCardContainerTitle/    # 컨테이너 제목
-│           ├── UserRegister/              # 지원자 등록 폼
-│           ├── UserRegisterModal/         # 등록 모달
-│           └── UserStatusBoard/           # 메인 보드
-├── contexts/            # React Context (테마 관리)
-├── hooks/              # Custom Hooks
-│   ├── useDragAndDrop.ts      # 드래그 앤 드롭 로직
-│   ├── useUserForm.ts         # 폼 상태 관리
-│   └── useUserListHook.ts     # 사용자 리스트 관리
-├── pages/              # 페이지 컴포넌트
+├── components/                 # 재사용 가능한 컴포넌트
+│   ├── common/                # 공통 컴포넌트
+│   │   └── Menu/
+│   │       └── Menu.tsx
+│   └── ui/                    # UI 컴포넌트
+│       └── Dashboard/         # 대시보드 관련 컴포넌트
+│           ├── UserCard/                      # 지원자 카드
+│           │   ├── UserCard.stories.tsx
+│           │   ├── userCard.tsx
+│           │   └── UserDeleteConfirmModal.tsx
+│           ├── UserCardContainer/             # 상태별 컨테이너
+│           │   ├── UserCardContainer.stories.tsx
+│           │   └── UserCardContainer.tsx
+│           ├── UserCardContainerTitle/        # 컨테이너 제목
+│           │   └── userCardContainerTitle.tsx
+│           ├── UserRegister/                  # 지원자 등록
+│           │   ├── UserRegisterModal.tsx
+│           │   └── utils/
+│           │       └── validateUserForm.ts
+│           ├── UserRegisterModal/             # 등록 모달 (레거시)
+│           │   └── utils/
+│           │       └── validateUserForm.ts
+│           └── UserStatusBoard/               # 메인 보드
+│               └── UserStatusBoard.tsx
+├── constants/                  # 상수 정의
+│   └── urls.ts
+├── contexts/                   # React Context (테마 관리)
+│   └── ThemeContext.tsx
+├── dummy/                      # 더미 데이터
+│   └── dummyData.ts
+├── hooks/                      # Custom Hooks
+│   ├── useDragAndDrop.ts              # 드래그 앤 드롭 로직
+│   ├── useUserForm.ts                 # 폼 상태 관리
+│   └── useUserListHook.ts             # 사용자 리스트 관리
+├── pages/                      # 페이지 컴포넌트
 │   └── Dashboard/
-├── quries/             # React Query 설정 및 쿼리
+│       └── DashboardContainer.tsx
+├── quries/                     # React Query 설정 및 쿼리
 │   ├── queryClient.ts
 │   └── UserQuery.ts
-├── types/              # TypeScript 타입 정의
-│   ├── status.type.ts  # 채용 상태 enum
-│   └── user.type.ts    # 사용자 타입
-├── themes/             # MUI 테마 설정
+├── stories/                    # Storybook 스토리
+├── themes/                     # MUI 테마 설정
 │   └── muiTheme.ts
-├── dummy/              # 더미 데이터
-│   └── dummyData.ts
-└── App.tsx             # 앱 루트 컴포넌트
+├── types/                      # TypeScript 타입 정의
+│   ├── status.type.ts                 # 채용 상태 enum
+│   └── user.type.ts                   # 사용자 타입
+├── utils/                      # 유틸리티 함수
+│   └── file/
+│       └── fileDownload.ts
+├── App.tsx                     # 앱 루트 컴포넌트
+├── index.css                   # 전역 스타일
+└── main.tsx                    # 앱 엔트리 포인트
 ```
 
 ## 🚀 시작하기
@@ -88,7 +111,7 @@ npm run dev
 yarn dev
 ```
 
-브라우저에서 `http://localhost:5173` 으로 접속
+브라우저에서 `http://localhost:5173` or `https://recruiting-management-dashboard.vercel.app/` 접속
 
 ### 빌드
 
@@ -134,7 +157,7 @@ yarn build-storybook
 ### 1. 프로젝트 Base 생성
 - **작업 내용**: Vite + React + TypeScript 프로젝트 초기 세팅
 
-### 2. TypeScript 타입 정의
+### 2. TypeScript 타입 및 변수명 정의
 - **작업 내용**: 타입 안정성을 위한 인터페이스 및 Enum 정의
 
 ### 3. 더미 데이터 생성
@@ -153,6 +176,9 @@ yarn build-storybook
 - **작업 내용**: @dnd-kit을 활용한 인터랙티브 UI 구현
 
 ### 8.Code Refactor Check & Cleanup
-- **작업 내용**: 컴포넌트 SOLID 원칙 잘 준수하는지 Check 및 필요없는 주석 등 제거
+- **작업 내용**: 컴포넌트 SOLID 원칙 잘 준수하는지 검사 및 필요없는 주석 등 제거
 
+
+### cursor-rules 적용 기준
+- 상세 rules 확인하기 위해  .cursorrules 파일을 확인
 ---

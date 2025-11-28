@@ -24,6 +24,5 @@ dist-ssr
 *.sw?
 
 #LLM
-.cursorrules
 *storybook.log
 storybook-static
