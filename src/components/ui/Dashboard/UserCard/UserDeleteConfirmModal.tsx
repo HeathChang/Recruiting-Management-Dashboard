@@ -2,7 +2,7 @@ import { Modal, Button, Box } from "@mui/material";
 import { IconUser, IconMail, IconPhone, IconProgress } from "@tabler/icons-react";
 import { UserType } from "../../../../types/user.type";
 import { useTheme } from "../../../../contexts/ThemeContext";
-import { getStatusLabel, StatusEnum } from "../../../../types/status.type";
+import { getStatusLabel } from "../../../../types/status.type";
 
 interface UserDeleteConfirmModalProps {
     open: boolean;
